@@ -6,16 +6,16 @@ terraform {
   required_providers {
     oci = {
       source                = "oracle/oci"
-      version               = "~> 5.46"
+      version               = "~> 8.0"
       configuration_aliases = [oci, oci.home_region]
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.7"
+      version = "~> 3.0"
     }
     local = {
       source  = "hashicorp/local"
-      version = "~> 2.5.1"
+      version = "~> 2.7"
     }
   }
 }
