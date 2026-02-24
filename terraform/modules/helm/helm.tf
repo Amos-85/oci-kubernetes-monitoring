@@ -56,14 +56,13 @@ resource "helm_release" "oci-kubernetes-monitoring" {
   cleanup_on_fail   = true
   atomic            = true
 
-  dynamic "set" {
-    for_each = local.helm_inputs
-    content {
-      name  = set.key
-      value = set.value
+  set = [
+    for key, value in local.helm_inputs : {
+      name  = key
+      value = value
     }
-  }
-
+  ] 
+ 
   # To be released in future; if required
   # Run Helm Apply every time terraform apply job is executed
   # Check if this will pick up the latest helm chart as well
@@ -85,13 +84,12 @@ data "helm_template" "oci-kubernetes-monitoring" {
   version           = local.version
   dependency_update = true
 
-  dynamic "set" {
-    for_each = local.helm_inputs
-    content {
-      name  = set.key
-      value = set.value
+  set = [
+    for key, value in local.helm_inputs : {
+      name  = key
+      value = value
     }
-  }
+  ]
 
   count = var.generate_helm_template ? 1 : 0
 }
